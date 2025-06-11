@@ -1,54 +1,56 @@
-# FlixFlex
+# 🎬 FlixFlex
 
-FlixFlex is a mobile application that allows users to explore and discover movies and series from The Movie Database (TMDb) API. The app provides a seamless and intuitive experience, displaying trending movies, upcoming films, top-rated content, and much more. It features robust authentication, favorite management, search functionality, and detailed movie/series profiles with related content.
+**FlixFlex** is a mobile application built with **React Native (Expo)** that allows users to explore and discover movies and series from **The Movie Database (TMDb)**. It features smooth navigation, beautiful UI, and essential features like authentication, favorites, and search.
 
-## Features
+---
 
-### 1. **Movies Screen**
+## 🚀 Features
 
-* Displays a list of trending movies.
-* Shows upcoming movies.
-* Displays the top 5 rated movies in a dedicated section.
-* A discover section with various movie categories.
-![5931332256931103919](https://github.com/user-attachments/assets/970c0381-8f04-4e9a-befe-a4f53399abb9)
+### 📽️ Movies Screen
+- Trending movies
+- Upcoming movies
+- Top 5 rated movies
+- Discover section with various categories  
+<img src="https://github.com/user-attachments/assets/970c0381-8f04-4e9a-befe-a4f53399abb9" width="600"/>
 
+---
 
-### 2. **Series Screen**
+### 📺 Series Screen
+- Trending series
+- Upcoming series for the week
+- Top 5 rated series
+- Discover section with category filters  
+<img src="https://github.com/user-attachments/assets/b568bf48-2737-480d-b050-ee12f932274f" width="600"/>
 
-* Displays a list of trending series.
-* Shows upcoming series to watch next week.
-* Displays the top 5 rated series.
-* A discover section with various series categories.
-![5931332256931103920](https://github.com/user-attachments/assets/b568bf48-2737-480d-b050-ee12f932274f)
+---
 
+### ❤️ Favorites
+- Tap the heart icon to save movies/series
+- Favorites saved locally with `AsyncStorage`  
+<img src="https://github.com/user-attachments/assets/52e9fb31-0995-4aa1-91c8-d91180bdaa3e" width="600"/>
 
-### 3. **Favorites Screen**
+---
 
-* Allows users to store their favorite movies or series by clicking a heart icon on the movie/series poster.
-* The favorite items are stored locally using `AsyncStorage`.
-![5931332256931103921](https://github.com/user-attachments/assets/52e9fb31-0995-4aa1-91c8-d91180bdaa3e)
+### 🎞️ Detail View
+- Comprehensive details for each movie/series
+- Includes images, trailer, production companies
+- Recommendations for related content  
+<img src="https://github.com/user-attachments/assets/c271d212-5159-4bc7-bfe7-22d1db099f61" width="600"/>
 
+---
 
-### 4. **Detail Screen**
+### 🔍 Search Functionality
+- Search by title or keyword
+- Results fetched from TMDb API  
+<img src="https://github.com/user-attachments/assets/91244ce3-5d78-4389-ab18-c4d5f340d36c" width="600"/>
 
-* Displays detailed information about a movie or series.
-* Shows images, the trailer, and the production companies involved.
-* Provides related or similar content recommendations.
-![5931332256931103923](https://github.com/user-attachments/assets/c271d212-5159-4bc7-bfe7-22d1db099f61)
+---
 
+### 🔐 Authentication
+- Email-based authentication using **Firebase Auth**  
+<img src="https://github.com/user-attachments/assets/bc87b45a-5a28-4938-8d16-19ec86ec35dc" width="600"/>
 
-### 5. **Search Functionality**
-
-* Allows users to search for movies and series by title or keywords.
-* Displays matching results from the TMDb API.
-![5931332256931103922](https://github.com/user-attachments/assets/91244ce3-5d78-4389-ab18-c4d5f340d36c)
-
-
-### 6. **Authentication**
-
-* Users can sign up and log in using **Firebase Authentication** with email.
-![5931332256931103924](https://github.com/user-attachments/assets/bc87b45a-5a28-4938-8d16-19ec86ec35dc)
-
+---
 
 ### 7. **UI/UX Design**
 
