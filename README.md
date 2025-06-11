@@ -11,7 +11,7 @@
 - Upcoming movies
 - Top 5 rated movies
 - Discover section with various categories  
-<img src="https://github.com/user-attachments/assets/970c0381-8f04-4e9a-befe-a4f53399abb9" width="600"/>
+<img src="https://github.com/user-attachments/assets/970c0381-8f04-4e9a-befe-a4f53399abb9" width="200"/>
 
 ---
 
@@ -20,14 +20,14 @@
 - Upcoming series for the week
 - Top 5 rated series
 - Discover section with category filters  
-<img src="https://github.com/user-attachments/assets/b568bf48-2737-480d-b050-ee12f932274f" width="600"/>
+<img src="https://github.com/user-attachments/assets/b568bf48-2737-480d-b050-ee12f932274f" width="200"/>
 
 ---
 
 ### ❤️ Favorites
 - Tap the heart icon to save movies/series
 - Favorites saved locally with `AsyncStorage`  
-<img src="https://github.com/user-attachments/assets/52e9fb31-0995-4aa1-91c8-d91180bdaa3e" width="600"/>
+<img src="https://github.com/user-attachments/assets/52e9fb31-0995-4aa1-91c8-d91180bdaa3e" width="200"/>
 
 ---
 
@@ -35,20 +35,20 @@
 - Comprehensive details for each movie/series
 - Includes images, trailer, production companies
 - Recommendations for related content  
-<img src="https://github.com/user-attachments/assets/c271d212-5159-4bc7-bfe7-22d1db099f61" width="600"/>
+<img src="https://github.com/user-attachments/assets/c271d212-5159-4bc7-bfe7-22d1db099f61" width="200"/>
 
 ---
 
 ### 🔍 Search Functionality
 - Search by title or keyword
 - Results fetched from TMDb API  
-<img src="https://github.com/user-attachments/assets/91244ce3-5d78-4389-ab18-c4d5f340d36c" width="600"/>
+<img src="https://github.com/user-attachments/assets/91244ce3-5d78-4389-ab18-c4d5f340d36c" width="200"/>
 
 ---
 
 ### 🔐 Authentication
 - Email-based authentication using **Firebase Auth**  
-<img src="https://github.com/user-attachments/assets/bc87b45a-5a28-4938-8d16-19ec86ec35dc" width="600"/>
+<img src="https://github.com/user-attachments/assets/bc87b45a-5a28-4938-8d16-19ec86ec35dc" width="200"/>
 
 ---
 
