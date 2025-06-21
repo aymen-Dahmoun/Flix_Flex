@@ -73,8 +73,8 @@ Ensure you have the following installed:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/FlixFlex.git
-   cd FlixFlex
+   git clone https://github.com/aymen-Dahmoun/Flix_Flex
+   cd Flix_Flex
    ```
 
 2. Install dependencies:
@@ -128,14 +128,3 @@ Ensure you have the following installed:
 * Seamless transitions and smooth animations provide a fluid user experience.
 * Optimized for both **phones** and **tablets**.
 
-## Contributing
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-name`).
-3. Commit your changes (`git commit -am 'Add feature'`).
-4. Push to the branch (`git push origin feature-name`).
-5. Create a new Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
