@@ -13,26 +13,26 @@ export default function MoviesListScreen() {
   const [movieIds, setMovieIds] = useState(new Set());
   const [page, setPage] = useState(1);
 
-  const {data: movies, loading: loadingMovies, error: errorMovies} = useFetch('discover/movie', {
+  const {data: movies, isLoading: loadingMovies, error: errorMovies} = useFetch('discover/movie', {
     language: "en-US",
     sort_by: "popularity.desc",
     page: page,
-  });
+  }, { staleTime: 60 * 60 * 1000 });
 
-  const {data: trending, loading: loadingTrending, error: errorTrending} = useFetch('discover/movie', {
+  const {data: trending, isLoading: loadingTrending, error: errorTrending} = useFetch('discover/movie', {
     include_adult: false,
     include_video: true,
     language: "en-US",
     page: 1,
     sort_by: "popularity.desc",
-  });
+  }, { staleTime: 60 * 60 * 1000 });
 
-  const {data: upcomings, loading: loadingUpcomings, error: errorUpcomings} = useFetch('movie/upcoming');
+  const {data: upcomings, isLoading: loadingUpcomings, error: errorUpcomings} = useFetch('movie/upcoming', {}, { staleTime: 60 * 60 * 1000 });
 
   const {data: topRated, loading: loadingTopRated, error: errorTopRated} = useFetch('movie/top_rated', {
     language: "en-US",
     page: 1,
-  });
+  }, { staleTime: 60 * 60 * 1000 });
 
   useEffect(() => {
     if (movies?.length > 0) {

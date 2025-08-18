@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Constants from 'expo-constants';
-const apiKey = Constants.expoConfig?.extra?.TMDB_API_KEY;
+import { api } from "../api/axiosClient";
 
 export default function useSearch(query) {
   const [result, setResult] = useState([]);
@@ -22,10 +21,9 @@ export default function useSearch(query) {
       setErr(null);
       
       try {
-        const { data } = await axios.get("https://api.themoviedb.org/3/search/multi", {
+        const { data } = await api.get("https://api.themoviedb.org/3/search/multi", {
           params: { 
             query: query.trim(),
-            api_key: apiKey
           },
           
         });

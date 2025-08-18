@@ -11,29 +11,29 @@ export default function SeriesListScreen() {
 
   const [seriesList, setSeriessList] = useState([]);
   const [page, setPage] = useState(1);
-  const {data: series, loading: loadingSeries, error: errorSeries} = useFetch('discover/tv', {
+  const {data: series, isLoading: loadingSeries, error: errorSeries} = useFetch('discover/tv', {
     include_adult: false,
     include_video: true,
     language: "en-US",
     sort_by: "popularity.desc",
     page: page,
-  });
-  const {data: trending, loading: loadingTrending, error: errorTrending} = useFetch('tv/top_rated', {
+  }, { staleTime: 60 * 60 * 1000 });
+  const {data: trending, isLoading: loadingTrending, error: errorTrending} = useFetch('tv/top_rated', {
     include_adult: false,
     include_video: true,
     language: "en-US",
     page: 1,
     sort_by: "popularity.desc",
-  });
-  const {data: popular, loading: loadingPopular, error: errorPopular} = useFetch('tv/popular', {
+  }, { staleTime: 60 * 60 * 1000 });
+  const {data: popular, isLoading: loadingPopular, error: errorPopular} = useFetch('tv/popular', {
     include_adult: false,
     include_video: true,
     language: "en-US",
     page: 1,
     sort_by: "popularity.desc",
-  });
-  const {data: upcomings, loading: loadingUpcomings,
-    error: errorUpcomings} = useFetch('tv/on_the_air');
+  }, { staleTime: 60 * 60 * 1000 });
+  const {data: upcomings, isLoading: loadingUpcomings,
+    error: errorUpcomings} = useFetch('tv/on_the_air', {}, { staleTime: 60 * 60 * 1000 });
     
   useEffect(() => {
     if (series?.length > 0) {

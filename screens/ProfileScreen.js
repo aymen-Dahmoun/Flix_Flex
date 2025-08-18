@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
-import { useAuth } from '../context/AuthProvider'; // Adjust path if needed
+import { useAuth } from '../context/AuthProvider'; 
 import { signOut } from 'firebase/auth';
 import { firebaseAuth } from '../firebaseClient';
 import logo from '../assets/logo.jpg'
 
 export default function UserScreen({navigation}) {
-    const { user } = useAuth(); // Assuming user has an `email` field
+    const { user } = useAuth();
     const handleLogout = async () => {
         try {
             await signOut(firebaseAuth);

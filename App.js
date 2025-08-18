@@ -4,21 +4,24 @@ import MainRouter from './MainRouter';
 import { NavigationContainer } from '@react-navigation/native';
 import { AuthProvider } from './context/AuthProvider';
 import { PaperProvider } from 'react-native-paper';
+import QueryProvider from './api/QueryClient';
 
 export default function App() {
   
   return (
-    <AuthProvider>
-      <NavigationContainer>
-        <SafeAreaProvider style={styles.container}>
-          <SafeAreaView style={{ flex: 1, width: '100%' }}>
-            <PaperProvider>
-              <MainRouter />
-            </PaperProvider>
-          </SafeAreaView>
-        </SafeAreaProvider>
-      </NavigationContainer>
-    </AuthProvider>
+    <QueryProvider>
+      <AuthProvider>
+        <NavigationContainer>
+          <SafeAreaProvider style={styles.container}>
+            <SafeAreaView style={{ flex: 1, width: '100%' }}>
+              <PaperProvider>
+                <MainRouter />
+              </PaperProvider>
+            </SafeAreaView>
+          </SafeAreaProvider>
+        </NavigationContainer>
+      </AuthProvider>
+    </QueryProvider>
   );
 }
 
