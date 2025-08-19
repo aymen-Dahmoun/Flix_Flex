@@ -7,6 +7,7 @@ export default function useFetch(path, params = {}, options = {}) {
       `https://api.themoviedb.org/3/${path}`,
       { params }
     );
+    console.log("Fetched data:", response.data);
     return response.data.results ?? response.data;
   };
 
