@@ -58,7 +58,6 @@ const styles = {
   },
   searchWrapper: {
     padding: 12,
-    marginBottom: 10,
   },
   resultsModal: {
     position: "absolute",

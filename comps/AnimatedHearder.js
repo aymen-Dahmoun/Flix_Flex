@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     zIndex: 20,
     justifyContent: "flex-end",
     overflow: "visible",
+    
   },
   headerGradient: {
     marginHorizontal: 16,
@@ -72,15 +73,11 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
-    elevation: 8,
   },
   headerTitle: {
     fontSize: 28,
     fontWeight: "800",
     color: "white",
     textAlign: "center",
-    textShadowColor: "rgba(0, 0, 0, 0.3)",
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 3,
   },
 });
