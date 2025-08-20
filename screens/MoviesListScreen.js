@@ -1,23 +1,30 @@
-import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import Animated, { 
+  FadeInDown, 
+  FadeInUp, 
+  SlideInRight,
+  BounceIn,
+  useSharedValue,
+  useAnimatedScrollHandler,
+} from 'react-native-reanimated';
+import { LinearGradient } from 'expo-linear-gradient';
 import ShowCard from '../comps/ShowCard';
 import WideCard from '../comps/WideCard';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import useFetch from '../hooks/useFetch';
 import ShowsList from '../comps/ShowsList';
-import { Divider } from 'react-native-paper';
 import useInfiniteFetch from '../hooks/useInifinitFetch';
+import { AnimatedSection, AnimatedSectionTitle } from '../comps/AnimatedLayouts';
+import AnimaedHeader from '../comps/AnimatedHearder';
+import CustomDivider from '../comps/CustomDivider';
+
+
+const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
 
 export default function MoviesListScreen() {
-  // Infinite scroll for Discover
-  const {
-    data: movies,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isLoading: loadingMovies,
-    error: errorMovies,
-  } = useInfiniteFetch(
+  const scrollY = useSharedValue(0);
+
+  const { data: movies, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading: loadingMovies, error: errorMovies } = useInfiniteFetch(
     "discover/movie",
     { language: "en-US", sort_by: "popularity.desc" },
     { staleTime: 60 * 60 * 1000 }
@@ -25,20 +32,7 @@ export default function MoviesListScreen() {
 
   const moviesList = movies?.pages.flatMap((page) => page.results) || [];
 
-  // Normal fetch queries
-  const {
-    data: trending,
-    isLoading: loadingTrending,
-    error: errorTrending,
-  } = useFetch(
-    "discover/movie",
-    {
-      include_adult: false,
-      include_video: true,
-      language: "en-US",
-      page: 1,
-      sort_by: "popularity.desc",
-    },
+  const { data: trending, isLoading: loadingTrending, error: errorTrending } = useFetch( "discover/movie", { include_adult: false, include_video: true, language: "en-US", page: 1, sort_by: "popularity.desc"},
     { staleTime: 60 * 60 * 1000 }
   );
 
@@ -49,132 +43,162 @@ export default function MoviesListScreen() {
   } = useFetch("movie/upcoming", {}, { staleTime: 60 * 60 * 1000 });
 
   const {
-  data: topRated,
-  isLoading: loadingTopRated,
-  error: errorTopRated
-} = useFetch("movie/top_rated", {
-  language: "en-US",
-  page: 1,
-}, { staleTime: 60 * 60 * 1000 });
+    data: topRated,
+    isLoading: loadingTopRated,
+    error: errorTopRated
+  } = useFetch("movie/top_rated", {
+    language: "en-US",
+    page: 1,
+  }, { staleTime: 60 * 60 * 1000 });
+  const onScroll = useAnimatedScrollHandler({
+    onScroll: (event) => {
+      scrollY.value = event.contentOffset.y;
+    },
+  });
 
   return (
-    <SafeAreaProvider
-      style={{
-        alignItems: "center",
-        justifyContent: "center",
-        width: "100%",
-        flex: 1,
-        backgroundColor: "white",
-      }}
-    >
-      <View
-        style={{
-          width: "100%",
-          flex: 1,
-          justifyContent: "space-around",
-          alignItems: "flex-start",
-        }}
+    <SafeAreaProvider style={styles.container}>
+      <LinearGradient
+        colors={['#ffffff', '#f8f9fa', '#ffffff']}
+        style={{ flex: 1 }}
       >
-        <ScrollView
+
+      <AnimaedHeader title="Movies" scrollY={scrollY} />
+        <Animated.ScrollView
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
-          style={{ width: "100%" }}
-        >
-          <Text style={{ fontSize: 28, fontWeight: "700", margin: 10 }}>
-            Movies
-          </Text>
-          <Divider style={{ ...styles.divider, width: "100%" }} bold />
+          style={{ flex: 1 }}
+          scrollEventThrottle={16}
+          onScroll={onScroll}
+          >
+              
+          <AnimatedSection delay={300}>
+            {!loadingTrending && (
+              <AnimatedSectionTitle title="Trending Now" delay={400} />
+            )}
+            <Animated.View entering={FadeInDown.delay(500).springify()}>
+              <ShowsList
+                shows={trending}
+                loading={loadingTrending}
+                error={errorTrending}
+                Component={ShowCard}
+                type="movie"
+              />
+            </Animated.View>
+          </AnimatedSection>
 
-          {!loadingTrending && (
-            <Text style={{ fontSize: 24, fontWeight: "700" }}>Trending</Text>
-          )}
-          <Divider style={styles.divider} />
-          <ShowsList
-            shows={trending}
-            loading={loadingTrending}
-            error={errorTrending}
-            Component={ShowCard}
-            type="movie"
-          />
+          <CustomDivider />
 
-          {!loadingUpcomings && (
-            <Text style={{ fontSize: 24, fontWeight: "700", margin: 10 }}>
-              Up Coming
-            </Text>
-          )}
-          <Divider style={styles.divider} />
-          <ShowsList
-            shows={upcomings}
-            loading={loadingUpcomings}
-            error={errorUpcomings}
-            Component={ShowCard}
-            type="movie"
-          />
-          <Divider style={styles.divider} />
 
-          {!loadingTopRated && (
-            <Text style={{ fontSize: 24, fontWeight: "700", margin: 10 }}>
-              Top Rated Five
-            </Text>
-          )}
-          <Divider style={styles.divider} />
-          <ShowsList
-            shows={topRated?.slice(0, 5)}
-            loading={loadingTopRated}
-            error={errorTopRated}
-            Component={ShowCard}
-            type="movie"
-          />
-          <Divider style={styles.divider} />
+          <AnimatedSection delay={700}>
+            {!loadingUpcomings && (
+              <AnimatedSectionTitle title="Coming Soon" delay={800} />
+            )}
+            <Animated.View entering={FadeInDown.delay(900).springify()}>
+              <ShowsList
+                shows={upcomings}
+                loading={loadingUpcomings}
+                error={errorUpcomings}
+                Component={ShowCard}
+                type="movie"
+              />
+            </Animated.View>
+          </AnimatedSection>
 
-          {!loadingMovies && (
-            <Text style={{ fontSize: 24, fontWeight: "700", margin: 10 }}>
-              Discover
-            </Text>
-          )}
-          <Divider style={styles.divider} />
-          <ShowsList
-            shows={moviesList}
-            loading={loadingMovies}
-            error={errorMovies}
-            isHorizontal={false}
-            Component={WideCard}
-            type="movie"
-          />
+          <CustomDivider />
+
+          <AnimatedSection delay={1100}>
+            {!loadingTopRated && (
+              <AnimatedSectionTitle title="Top 5 Rated" delay={1200} />
+            )}
+            <Animated.View entering={FadeInDown.delay(1300).springify()}>
+              <ShowsList
+                shows={topRated?.slice(0, 5) ?? []}
+                loading={loadingTopRated}
+                error={errorTopRated}
+                Component={ShowCard}
+                type="movie"
+              />
+            </Animated.View>
+          </AnimatedSection>
+
+          <CustomDivider />
+
+          <AnimatedSection delay={1500}>
+            {!loadingMovies && (
+              <AnimatedSectionTitle title="Discover Movies" delay={1600} />
+            )}
+            <Animated.View entering={FadeInUp.delay(1700).springify()}>
+              <ShowsList
+                shows={moviesList}
+                loading={loadingMovies}
+                error={errorMovies}
+                isHorizontal={false}
+                Component={WideCard}
+                type="movie"
+              />
+            </Animated.View>
+          </AnimatedSection>
 
           {hasNextPage && (
-            <TouchableOpacity
-              style={styles.loadMoreButton}
-              onPress={() => fetchNextPage()}
-              disabled={isFetchingNextPage}
-            >
-              <Text style={{ fontSize: 16, fontWeight: "700", margin: 10 }}>
-                {isFetchingNextPage ? "Loading..." : "More"}
-              </Text>
-            </TouchableOpacity>
+            <Animated.View entering={BounceIn.delay(1800)}>
+              <AnimatedTouchableOpacity
+                style={styles.loadMoreButton}
+                onPress={() => fetchNextPage()}
+                disabled={isFetchingNextPage}
+              >
+                <LinearGradient
+                  colors={['rgba(255, 123, 0, 1)', 'rgba(255, 87, 51, 1)']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={styles.buttonGradient}
+                >
+                  <Text style={styles.buttonText}>
+                    {isFetchingNextPage ? "🔄 Loading..." : "✨ Load More"}
+                  </Text>
+                </LinearGradient>
+              </AnimatedTouchableOpacity>
+            </Animated.View>
           )}
-        </ScrollView>
-      </View>
+
+          <View style={{ height: 50 }} />
+        </Animated.ScrollView>
+      </LinearGradient>
     </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  divider: {
-    marginVertical: 10,
-    width: "90%",
-    backgroundColor: "rgb(255, 123, 0)",
-    alignSelf: "center",
+  container: {
+    flex: 1,
+    backgroundColor: "white",
   },
   loadMoreButton: {
-    height: 40,
-    width: 150,
-    alignSelf: "center",
-    borderWidth: 1,
-    borderColor: "rgb(255, 115, 0)",
-    borderRadius: 40,
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 10,
+    height: 55,
+    marginHorizontal: 20,
+    marginVertical: 20,
+    borderRadius: 27.5,
+    shadowColor: '#FF7B00',
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.4,
+    shadowRadius: 12,
+    elevation: 10,
+  },
+  buttonGradient: {
+    flex: 1,
+    borderRadius: 27.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: 'white',
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 3,
   },
 });

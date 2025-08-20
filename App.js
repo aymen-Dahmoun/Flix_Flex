@@ -5,6 +5,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { AuthProvider } from './context/AuthProvider';
 import { PaperProvider } from 'react-native-paper';
 import QueryProvider from './api/QueryClient';
+import { enableScreens } from 'react-native-screens';
+
+enableScreens();
 
 export default function App() {
   

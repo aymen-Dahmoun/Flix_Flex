@@ -1,89 +1,115 @@
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
-import { Card, IconButton, Text } from "react-native-paper";
-import { addFavorite, getFavorites, isFavorite, removeFavorite } from "../utils/operationsOnLcalStorage";
+import { StyleSheet, TouchableOpacity, View, Image, Text } from "react-native";
+import { addFavorite, isFavorite, removeFavorite } from "../utils/operationsOnLcalStorage";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function MovieCard({ show, type }) {
-    const stars = Array.from({ length: Math.round(show.vote_average / 2) });
-    const navigation = useNavigation();
-    const [isIconActive, setIsIConActive] = useState(false);
-    
-      useEffect(() => {
-        const fetchFavorites = async () => {
-          const isFave = await isFavorite(show.id);
-          setIsIConActive(isFave? true : false);
-        };
-        fetchFavorites();
-      }, []);
+  const stars = Array.from({ length: Math.round(show.vote_average / 2) });
+  const navigation = useNavigation();
+  const [isIconActive, setIsIconActive] = useState(false);
 
-    const handleIconPress = async ()=>{
-        setIsIConActive((prevColor) => (prevColor === true ? false : true));
-        if (!isIconActive){
-            await addFavorite({...show, type:type})
-        } else{
-            await removeFavorite(show.id)
-        }
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      const isFave = await isFavorite(show.id);
+      setIsIconActive(isFave ? true : false);
+    };
+    fetchFavorites();
+  }, []);
+
+  const handleIconPress = async () => {
+    setIsIconActive((prev) => !prev);
+    if (!isIconActive) {
+      await addFavorite({ ...show, type });
+    } else {
+      await removeFavorite(show.id);
     }
-    return (
-  <TouchableOpacity onPress={() => navigation.navigate('Details', { showId: show.id, type: type })}>
-    <Card style={styles.Card} mode='contained'>
-      <View style={{ position: 'absolute', right: 10, top: 10, zIndex: 2 }}>
-        <IconButton
-          icon={isIconActive? 'heart' : 'heart-outline'}
+  };
+
+  return (
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => navigation.navigate("Details", { showId: show.id, type })}
+    >
+      <TouchableOpacity
+        onPress={handleIconPress}
+        style={styles.favoriteButton}
+      >
+        <Ionicons
+          name={isIconActive ? "heart" : "heart-outline"}
           size={16}
-          color={'grey'}
-          onPress={handleIconPress}
-          style={{ backgroundColor: 'rgba(255, 255, 255, 0.70)', borderRadius: 16 }}
+          color="grey"
         />
-      </View>
-      <Card.Cover
+      </TouchableOpacity>
+
+      <Image
         source={{ uri: `https://image.tmdb.org/t/p/w500/${show.poster_path}` }}
-        style={styles.Cover}
+        style={styles.cover}
+        resizeMode="cover"
       />
-      <Card.Title
-        title={show.original_name ?? show.title}
-        subtitle={show.release_date ?? show.first_air_date}
-        titleNumberOfLines={1}
-        subtitleNumberOfLines={1}
-        titleStyle={styles.title}
-      />
-      <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10, marginBottom: 10 }}>
+
+      <View style={styles.textContainer}>
+        <Text style={styles.title} numberOfLines={1}>
+          {show.original_name ?? show.title}
+        </Text>
+        <Text style={styles.subtitle} numberOfLines={1}>
+          {show.release_date ?? show.first_air_date}
+        </Text>
+      </View>
+
+      <View style={styles.stars}>
         {stars.map((_, i) => (
-          <IconButton
-            key={i}
-            icon="star"
-            size={15}
-            iconColor="#FFD700"
-            style={{ padding: 0, margin: 0, width: 15, height: 15 }}
-          />
+          <Ionicons key={i} name="star" size={15} color="#FFD700" />
         ))}
       </View>
-    </Card>
-  </TouchableOpacity>
-);
+    </TouchableOpacity>
+  );
 }
 
 const styles = StyleSheet.create({
-    Card: {
-        margin: 5,
-        borderWidth: 0.5,
-        borderRadius: 6,
-        borderColor: '#ccc',
-        width: 160,
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        overflow: "hidden",
-    },
-    title: {
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    Cover: {
-        width: 160,
-        height: 210,
-        alignSelf: 'center',
-        overflow: 'hidden',
-        borderRadius: 6,
-    },
-})
+  card: {
+    margin: 5,
+    borderWidth: 0.5,
+    borderRadius: 6,
+    borderColor: "#ccc",
+    width: 160,
+    alignItems: "center",
+    backgroundColor: "#fff",
+    overflow: "hidden",
+  },
+  favoriteButton: {
+    position: "absolute",
+    right: 10,
+    top: 10,
+    zIndex: 2,
+    backgroundColor: "rgba(255, 255, 255, 0.7)",
+    borderRadius: 16,
+    padding: 4,
+  },
+  cover: {
+    width: 160,
+    height: 210,
+    borderTopLeftRadius: 6,
+    borderTopRightRadius: 6,
+  },
+  textContainer: {
+    width: "100%",
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#000",
+  },
+  subtitle: {
+    fontSize: 12,
+    color: "#666",
+  },
+  stars: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: 10,
+    marginBottom: 10,
+  },
+});
