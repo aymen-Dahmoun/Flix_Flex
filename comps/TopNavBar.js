@@ -15,7 +15,7 @@ export default function TopNavBar() {
     navigation.navigate("Details", { showId: item.id, type: item.media_type });
 
   return (
-    <View style={{ zIndex: 10 }} pointerEvents="box-none"> 
+    <View > 
       <LinearGradient
         colors={["#ff7300", "#ff9a3c"]}
         start={{ x: 0, y: 0 }}
