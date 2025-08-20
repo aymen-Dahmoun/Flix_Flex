@@ -2,7 +2,6 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Animated, { 
   FadeInDown, 
   FadeInUp, 
-  SlideInRight,
   BounceIn,
   useSharedValue,
   useAnimatedScrollHandler,
@@ -10,12 +9,12 @@ import Animated, {
 import { LinearGradient } from 'expo-linear-gradient';
 import ShowCard from '../comps/ShowCard';
 import WideCard from '../comps/WideCard';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import useFetch from '../hooks/useFetch';
 import ShowsList from '../comps/ShowsList';
 import useInfiniteFetch from '../hooks/useInifinitFetch';
 import { AnimatedSection, AnimatedSectionTitle } from '../comps/AnimatedLayouts';
-import AnimaedHeader from '../comps/AnimatedHearder';
+import AnimaedHeader, {HEADER_HEIGHT} from '../comps/AnimatedHearder';
 import CustomDivider from '../comps/CustomDivider';
 
 
@@ -23,6 +22,8 @@ const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpaci
 
 export default function MoviesListScreen() {
   const scrollY = useSharedValue(0);
+    const insets = useSafeAreaInsets();
+  
 
   const { data: movies, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading: loadingMovies, error: errorMovies } = useInfiniteFetch(
     "discover/movie",
@@ -55,20 +56,22 @@ export default function MoviesListScreen() {
       scrollY.value = event.contentOffset.y;
     },
   });
-
+  const contentTopPad = insets.top + HEADER_HEIGHT;
+  
   return (
     <SafeAreaProvider style={styles.container}>
       <LinearGradient
         colors={['#ffffff', '#f8f9fa', '#ffffff']}
         style={{ flex: 1 }}
       >
+        <AnimaedHeader title="Movies" scrollY={scrollY} />
 
-      <AnimaedHeader title="Movies" scrollY={scrollY} />
         <Animated.ScrollView
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
           style={{ flex: 1 }}
           scrollEventThrottle={16}
+          contentContainerStyle={{ paddingTop: contentTopPad }}
           onScroll={onScroll}
           >
               
@@ -128,7 +131,7 @@ export default function MoviesListScreen() {
             {!loadingMovies && (
               <AnimatedSectionTitle title="Discover Movies" delay={1600} />
             )}
-            <Animated.View entering={FadeInUp.delay(1700).springify()}>
+            <Animated.View style={{backgroundColor: 'white'}} entering={FadeInUp.delay(1700).springify()}>
               <ShowsList
                 shows={moviesList}
                 loading={loadingMovies}

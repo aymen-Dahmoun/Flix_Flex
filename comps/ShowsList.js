@@ -1,5 +1,6 @@
 import { FlatList, View } from "react-native";
 import { Text, Divider, ActivityIndicator } from "react-native-paper";
+import CustomDivider from "./CustomDivider";
 
 export default function ShowsList({ shows, loading, error, isHorizontal = true, Component, type }) {
     if (loading) {
@@ -24,7 +25,11 @@ export default function ShowsList({ shows, loading, error, isHorizontal = true, 
                             height: isHorizontal ? '100%' : 40,
                             backgroundColor: '#fff'
                         }} />
-                        : <Component show={item} type={type} />
+                        :
+                        <>
+                            <Component show={item} type={type} />
+                            {!isHorizontal && <CustomDivider />}
+                        </>
                 }
                 horizontal={isHorizontal}
                 pagingEnabled={true}
@@ -33,7 +38,6 @@ export default function ShowsList({ shows, loading, error, isHorizontal = true, 
                 legacyImplementation={false}
                 scrollEnabled={isHorizontal}
                 maxToRenderPerBatch={10}
-                ItemSeparatorComponent={() => <Divider style={{ marginVertical: 10 }} />}
             />
         </View>
     );

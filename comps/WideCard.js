@@ -62,9 +62,8 @@ export default function WideCard({ show, type }) {
                                 size={15}
                                 iconColor="#FFD700"
                                 style={{ padding: 0, margin: 0, width: 15, height: 15 }}
-                            />
-                    ))}
-                </View>
+                            /> ))}
+                        </View>
                     </View>
                 </View>
             </Card>
