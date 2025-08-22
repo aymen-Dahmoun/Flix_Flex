@@ -29,7 +29,7 @@ const SearchResultsList = ({ results, loading, error, onItemPress }) => {
     );
 
   return (
-    <ScrollView style={{ backgroundColor: "#fff", borderRadius: 12, maxHeight: 280 }}>
+    <ScrollView style={{ backgroundColor: "#fff", borderRadius: 12, maxHeight: 400 }}>
       {results.map((item, idx) => (
         <SearchResultItem
           key={item.id || idx}
