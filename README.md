@@ -1,6 +1,19 @@
-# 🎬 FlixFlex
+![Screenshot_20250823_164801_Expo Go](https://github.com/user-attachments/assets/ab44b8c8-5ca1-40e1-8839-606fc6b191b4)# 🎬 FlixFlex
 
-**FlixFlex** is a mobile application built with **React Native (Expo)** that allows users to explore and discover movies and series from **The Movie Database (TMDb)**. It features smooth navigation, beautiful UI, and essential features like authentication, favorites, and search.
+**FlixFlex** is a mobile application built with **React Native (Expo)** that allows users to explore and discover movies and series from **The Movie Database (TMDb)**. It features smooth navigation, beautiful UI with animations, and essential features like authentication, a recommendation system bsed in user prefared genres ,favorites, and search.
+
+---
+
+## 🚀 Tech Stack
+
+<p align="left">
+  <img src="https://cdn.worldvectorlogo.com/logos/react-native-1.svg" alt="React Native" width="50" height="50"/>
+  <img src="https://seeklogo.com/images/E/expo-logo-01BB2BCFC3-seeklogo.com.png" alt="Expo" width="50" height="50"/>
+  <img src="https://cdn.worldvectorlogo.com/logos/nodejs-icon.svg" alt="Node.js" width="50" height="50"/>
+  <img src="https://cdn.worldvectorlogo.com/logos/firebase-1.svg" alt="Firebase" width="50" height="50"/>
+  <img src="https://cdn.worldvectorlogo.com/logos/react-query.svg" alt="React Query" width="50" height="50"/>
+  <img src="https://avatars.githubusercontent.com/u/17361558?s=200&v=4" alt="React Native Paper" width="50" height="50"/>
+</p>
 
 ---
 
@@ -11,7 +24,8 @@
 - Upcoming movies
 - Top 5 rated movies
 - Discover section with various categories  
-<img src="https://github.com/user-attachments/assets/970c0381-8f04-4e9a-befe-a4f53399abb9" width="200"/>
+<img src="https://github.com/user-attachments/assets/23386902-7b6c-4c8e-b117-8376af1f6a5f" width="200"/>
+<img src="https://github.com/user-attachments/assets/06ca9673-ed82-4647-ab46-422027c28fca" width="200"/>
 
 ---
 
@@ -20,14 +34,15 @@
 - Upcoming series for the week
 - Top 5 rated series
 - Discover section with category filters  
-<img src="https://github.com/user-attachments/assets/b568bf48-2737-480d-b050-ee12f932274f" width="200"/>
+<img src="https://github.com/user-attachments/assets/f1faadf6-9ece-41b6-bbac-0b6d7fe6700d" width="200"/>
+<img src="https://github.com/user-attachments/assets/970147ce-bb2f-4221-ba22-d0b724e6156a" width="200"/>
 
 ---
 
 ### ❤️ Favorites
 - Tap the heart icon to save movies/series
 - Favorites saved locally with `AsyncStorage`  
-<img src="https://github.com/user-attachments/assets/52e9fb31-0995-4aa1-91c8-d91180bdaa3e" width="200"/>
+<img src="https://github.com/user-attachments/assets/bb7a663e-079b-4f48-aabd-d7522e39ffdf" width="200"/>
 
 ---
 
@@ -35,20 +50,21 @@
 - Comprehensive details for each movie/series
 - Includes images, trailer, production companies
 - Recommendations for related content  
-<img src="https://github.com/user-attachments/assets/c271d212-5159-4bc7-bfe7-22d1db099f61" width="200"/>
+<img src="https://github.com/user-attachments/assets/6b6733cc-20ae-4003-9a9e-1b96b6a7a8e1" width="200"/>
 
 ---
 
 ### 🔍 Search Functionality
 - Search by title or keyword
 - Results fetched from TMDb API  
-<img src="https://github.com/user-attachments/assets/91244ce3-5d78-4389-ab18-c4d5f340d36c" width="200"/>
+<img src="https://github.com/user-attachments/assets/9f1ae211-423b-41bb-928c-f9ee1b65c8dc" width="200"/>
 
----
 
 ### 🔐 Authentication
 - Email-based authentication using **Firebase Auth**  
 <img src="https://github.com/user-attachments/assets/bc87b45a-5a28-4938-8d16-19ec86ec35dc" width="200"/>
+<img src="https://github.com/user-attachments/assets/5afddc27-3754-4bb9-b7b1-73c78c6ae40a" width="200"/>
+
 
 ---
 
@@ -90,24 +106,19 @@ Ensure you have the following installed:
    * Create a Firebase project on [Firebase Console](https://console.firebase.google.com/).
    * Enable **Firebase Authentication** with email/password sign-in.
    * Add the Firebase configuration to your app (follow Firebase setup instructions).
-   * Install Firebase SDK:
-
-     ```bash
-     npm install firebase
-     ```
 
 4. Set up the TMDb API:
 
    * Go to [TMDb API](https://www.themoviedb.org/documentation/api) and get your API key.
    * Replace the placeholder in your code with your API key.
 
-5. Run the app:
+5. rename .env.example as .env and fill the proper env variables
 
+6. Run the app:
 
      ```bash
      npx expo start
      ```
-
 ## Usage
 
 1. **Sign Up/Log In**: Use Firebase email authentication to sign up or log in.
