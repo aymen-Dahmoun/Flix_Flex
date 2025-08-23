@@ -1,4 +1,3 @@
-![Screenshot_20250823_171312_Expo Go](https://github.com/user-attachments/assets/1f99cd7f-8940-4d76-bd74-bf10fe43069f)
 **FlixFlex** is a mobile application built with **React Native (Expo)** that allows users to explore and discover movies and series from **The Movie Database (TMDb)**. It features smooth navigation, beautiful UI with animations, and essential features like authentication, a recommendation system bsed in user prefared genres ,favorites, and search.
 
 ---
@@ -7,11 +6,13 @@
 
 <p align="left">
   <img src="https://cdn.worldvectorlogo.com/logos/react-native-1.svg" alt="React Native" width="50" height="50"/>
-  <img src="https://seeklogo.com/images/E/expo-logo-01BB2BCFC3-seeklogo.com.png" alt="Expo" width="50" height="50"/>
+  <img src="<!-- your working Expo SVG URL here -->" alt="Expo" width="50" height="50"/>
   <img src="https://cdn.worldvectorlogo.com/logos/nodejs-icon.svg" alt="Node.js" width="50" height="50"/>
   <img src="https://cdn.worldvectorlogo.com/logos/firebase-1.svg" alt="Firebase" width="50" height="50"/>
-  <img src="https://cdn.worldvectorlogo.com/logos/react-query.svg" alt="React Query" width="50" height="50"/>
+  <img src="<!-- your working React Query SVG URL here -->" alt="React Query" width="50" height="50"/>
+  <img src="<!-- your JavaScript SVG URL here -->" alt="JavaScript" width="50" height="50"/>
 </p>
+
 
 ---
 
