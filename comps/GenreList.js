@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
+import { TouchableRipple } from "react-native-paper";
 
 export default function GenreList({ genres = [], selectedGenres = [], onToggle, title }) {
   return (
@@ -9,7 +10,7 @@ export default function GenreList({ genres = [], selectedGenres = [], onToggle, 
       )}
       <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
         {genres.map((genre) => (
-          <TouchableOpacity
+          <TouchableRipple
             key={genre.id}
             onPress={() => onToggle(genre.id)}
             style={{
@@ -28,7 +29,7 @@ export default function GenreList({ genres = [], selectedGenres = [], onToggle, 
             }}>
               {genre.name}
             </Text>
-          </TouchableOpacity>
+          </TouchableRipple>
         ))}
       </View>
     </View>

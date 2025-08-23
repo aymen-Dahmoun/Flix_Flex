@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { initializeAuth, getReactNativePersistence } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Constants from 'expo-constants';
 
@@ -23,7 +24,23 @@ const firebaseConfig = {
   measurementId: FIREBASE_MEASUREMENT_ID,
 };
 
+// console.log('Initializing Firebase with config:', {
+//   hasApiKey: !!FIREBASE_API_KEY,
+//   hasProjectId: !!FIREBASE_PROJECT_ID,
+//   projectId: FIREBASE_PROJECT_ID
+// });
+
 export const firebaseApp = initializeApp(firebaseConfig);
+
 export const firebaseAuth = initializeAuth(firebaseApp, {
   persistence: getReactNativePersistence(AsyncStorage)
 });
+
+export const firebaseDB = getFirestore(firebaseApp);
+
+// // Add debug logging for exports
+// console.log('Firebase exports:', {
+//   app: !!firebaseApp,
+//   auth: !!firebaseAuth,
+//   db: !!firebaseDB
+// });

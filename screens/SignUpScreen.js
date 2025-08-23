@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { Text, TextInput, TouchableOpacity, StyleSheet, ScrollView
-} from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { firebaseAuth } from '../firebaseClient';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { Divider } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState } from "react";
+import { Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Divider } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
+import GenreBottomSheet from "../comps/GenreBottomSheet";
 
 export default function SignUpScreen() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isBottomSheetVisible, setBottomSheetVisible] = useState(false);
   const navigation = useNavigation();
-  const handleRegister = async () => {
-    try {
-      await createUserWithEmailAndPassword(firebaseAuth, email.trim(), password);
-    } catch (err) {
-      alert(err.message);
+
+  const handleNext = () => {
+    if (!email || !password) {
+      alert("Please enter email and password first");
+      return;
     }
+    setBottomSheetVisible(true);
   };
 
   return (
@@ -43,70 +43,78 @@ export default function SignUpScreen() {
           secureTextEntry
         />
 
-        <TouchableOpacity style={styles.button} onPress={handleRegister}>
-          <Text style={styles.buttonText}>Register</Text>
+        <TouchableOpacity style={styles.button} onPress={handleNext}>
+          <Text style={styles.buttonText}>Next</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
           <Text style={styles.linkText}>Already have an account? Sign In</Text>
         </TouchableOpacity>
       </ScrollView>
+
+      <GenreBottomSheet
+        isVisible={isBottomSheetVisible}
+        onClose={() => setBottomSheetVisible(false)}
+        email={email}
+        password={password}
+        onFinish={() => navigation.navigate("Home")}
+      />
     </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     flex: 1,
   },
   scroll: {
     padding: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   title: {
     fontSize: 28,
-    fontWeight: '700',
+    fontWeight: "700",
     marginVertical: 20,
   },
   label: {
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
     fontSize: 16,
     marginTop: 20,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   input: {
-    width: '100%',
+    width: "100%",
     borderWidth: 1,
-    borderColor: 'rgb(255, 123, 0)',
+    borderColor: "rgb(255, 123, 0)",
     borderRadius: 12,
     padding: 10,
     marginTop: 5,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   button: {
     marginTop: 30,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     borderWidth: 2,
-    borderColor: 'rgb(255, 115, 0)',
+    borderColor: "rgb(255, 115, 0)",
     borderRadius: 40,
     width: 200,
     height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   buttonText: {
     fontSize: 20,
-    fontWeight: '700',
-    color: 'rgb(255, 115, 0)',
+    fontWeight: "700",
+    color: "rgb(255, 115, 0)",
   },
   linkText: {
-    color: 'gray',
+    color: "gray",
     marginTop: 20,
   },
   divider: {
-    width: '90%',
+    width: "90%",
     marginBottom: 20,
-    backgroundColor: 'rgb(255, 123, 0)',
+    backgroundColor: "rgb(255, 123, 0)",
   },
 });
