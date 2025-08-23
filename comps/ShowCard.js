@@ -4,7 +4,7 @@ import { StyleSheet, TouchableOpacity, View, Image, Text } from "react-native";
 import { addFavorite, isFavorite, removeFavorite } from "../utils/operationsOnLcalStorage";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function MovieCard({ show, type }) {
+export default function ShowCard({ show, type }) {
   const stars = Array.from({ length: Math.round(show.vote_average / 2) });
   const navigation = useNavigation();
   const [isIconActive, setIsIconActive] = useState(false);
