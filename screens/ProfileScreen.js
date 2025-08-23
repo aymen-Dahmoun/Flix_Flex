@@ -78,7 +78,6 @@ export default function UserScreen({ navigation }) {
           </View>
         </Animated.View>
 
-        {/* Action Buttons with Enhanced Design */}
         <View style={styles.buttonContainer}>
           <Animated.View entering={SlideInLeft.delay(600).springify()}>
             <TouchableOpacity
@@ -140,7 +139,6 @@ export default function UserScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  // Enhanced Header Styles
   headerContainer: {
     paddingTop: 60,
     paddingBottom: 40,
@@ -176,7 +174,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   
-  // Enhanced Profile Image Styles
   profileImageContainer: {
     alignItems: 'center',
     marginBottom: 40,
