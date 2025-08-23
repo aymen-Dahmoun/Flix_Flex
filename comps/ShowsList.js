@@ -11,7 +11,6 @@ export default function ShowsList({ shows, loading, error, isHorizontal = true, 
         return <Text style={{alignSelf:'center'}}>Error: {error.message}</Text>;
     }
 
-
     return (
         <View>
             <FlatList

@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
-import { Card, Text } from "react-native-paper";
+import { Card } from "react-native-paper";
 import {IconButton} from "react-native-paper";
 import { addFavorite, isFavorite, removeFavorite } from "../utils/operationsOnLcalStorage";
 

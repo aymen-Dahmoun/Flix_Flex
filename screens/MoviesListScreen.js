@@ -22,7 +22,7 @@ const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpaci
 
 export default function MoviesListScreen() {
   const scrollY = useSharedValue(0);
-    const insets = useSafeAreaInsets();
+  const insets = useSafeAreaInsets();
   
 
   const { data: movies, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading: loadingMovies, error: errorMovies } = useInfiniteFetch(
