@@ -1,4 +1,3 @@
-![Screenshot_20250823_164801_Expo Go](https://github.com/user-attachments/assets/ab44b8c8-5ca1-40e1-8839-606fc6b191b4)# 🎬 FlixFlex
 
 **FlixFlex** is a mobile application built with **React Native (Expo)** that allows users to explore and discover movies and series from **The Movie Database (TMDb)**. It features smooth navigation, beautiful UI with animations, and essential features like authentication, a recommendation system bsed in user prefared genres ,favorites, and search.
 
@@ -12,7 +11,6 @@
   <img src="https://cdn.worldvectorlogo.com/logos/nodejs-icon.svg" alt="Node.js" width="50" height="50"/>
   <img src="https://cdn.worldvectorlogo.com/logos/firebase-1.svg" alt="Firebase" width="50" height="50"/>
   <img src="https://cdn.worldvectorlogo.com/logos/react-query.svg" alt="React Query" width="50" height="50"/>
-  <img src="https://avatars.githubusercontent.com/u/17361558?s=200&v=4" alt="React Native Paper" width="50" height="50"/>
 </p>
 
 ---
