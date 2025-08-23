@@ -1,4 +1,4 @@
-
+![Screenshot_20250823_171312_Expo Go](https://github.com/user-attachments/assets/1f99cd7f-8940-4d76-bd74-bf10fe43069f)
 **FlixFlex** is a mobile application built with **React Native (Expo)** that allows users to explore and discover movies and series from **The Movie Database (TMDb)**. It features smooth navigation, beautiful UI with animations, and essential features like authentication, a recommendation system bsed in user prefared genres ,favorites, and search.
 
 ---
@@ -40,7 +40,7 @@
 ### ❤️ Favorites
 - Tap the heart icon to save movies/series
 - Favorites saved locally with `AsyncStorage`  
-<img src="https://github.com/user-attachments/assets/bb7a663e-079b-4f48-aabd-d7522e39ffdf" width="200"/>
+<img src="https://github.com/user-attachments/assets/e4c1cb82-0588-472e-b845-d77210d398d0" width="200"/>
 
 ---
 
@@ -59,10 +59,12 @@
 
 
 ### 🔐 Authentication
-- Email-based authentication using **Firebase Auth**  
+- Email-based authentication using **Firebase Auth**
+- Taking favourite genres from user at signup
+- using those genres for generating better content on profile screen
 <img src="https://github.com/user-attachments/assets/bc87b45a-5a28-4938-8d16-19ec86ec35dc" width="200"/>
 <img src="https://github.com/user-attachments/assets/5afddc27-3754-4bb9-b7b1-73c78c6ae40a" width="200"/>
-
+<img src="https://github.com/user-attachments/assets/1d7cd80e-a87c-454b-a115-4088346673c1" width="200"/>
 
 ---
 
