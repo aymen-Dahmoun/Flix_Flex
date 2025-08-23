@@ -6,17 +6,17 @@ import { ScrollView } from 'react-native-gesture-handler';
 import useFetch from '../hooks/useFetch';
 import ShowsList from '../comps/ShowsList';
 import ShowCard from '../comps/ShowCard';
+import ImageViewing from 'react-native-image-viewing';
 
 export default function DetailsScreen({ route }) {
   const { showId, type } = route.params;
   const { width, height } = Dimensions.get('window');
 
   const [isWatching, setIsWatching] = useState(false);
-  const [imageVisible, setImageVisible] = useState(false);
+  const [imageIndex, setImageIndex] = useState(0);
+  const [isImageViewVisible, setIsImageViewVisible] = useState(false);
 
-  // Common query options → cache 3 minutes
-  const queryOpts = { staleTime: 3 * 60 * 1000 };
-
+  const queryOpts = { staleTime: 3 * 60 * 1000 }; // 3 minutes
   const { data, loading, error } = useFetch(`${type}/${showId}`, {}, queryOpts);
   const { data: videos, loading: loadingVideos } = useFetch(`${type}/${showId}/videos`, {}, queryOpts);
   const { data: similarShows, loading: loadingSimilar } = useFetch(`${type}/${showId}/similar`, {}, queryOpts);
@@ -33,21 +33,30 @@ export default function DetailsScreen({ route }) {
     (video) => video.type === 'Trailer' && video.official && video.site === 'YouTube'
   );
 
-  const openImage = (path) => {
+  const images = [
+    data.backdrop_path && { uri: `https://image.tmdb.org/t/p/w500/${data.backdrop_path}` },
+    data.poster_path && { uri: `https://image.tmdb.org/t/p/w500/${data.poster_path}` },
+    ...(data.production_companies?.map(
+      (c) => c.logo_path && { uri: `https://image.tmdb.org/t/p/w500/${c.logo_path}` }
+    ) || []),
+  ].filter(Boolean);
+
+  const openImage = (path, index = 0) => {
     if (!path) {
       Alert.alert('No image available');
       return;
     }
-    setImageVisible(`https://image.tmdb.org/t/p/w500/${path}`);
+    setImageIndex(index);
+    setIsImageViewVisible(true);
   };
 
   return (
     <PaperProvider>
       <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
         {/* Hero Section */}
-        <Card>
+        <View style={{ borderBlockColor: '#fff'}}>
           <View style={{ height: height * 0.29 + 80, width }}>
-            <TouchableOpacity onPress={() => openImage(data.backdrop_path)}>
+            <TouchableOpacity onPress={() => openImage(data.backdrop_path, 0)}>
               <Card.Cover
                 source={{ uri: `https://image.tmdb.org/t/p/w500/${data.backdrop_path}` }}
                 style={{ width, height: height * 0.29, borderRadius: 8 }}
@@ -72,7 +81,7 @@ export default function DetailsScreen({ route }) {
 
             {/* Poster + Title */}
             <View style={{ position: 'absolute', bottom: 0, left: 10, flexDirection: 'row' }}>
-              <TouchableOpacity onPress={() => openImage(data.poster_path)}>
+              <TouchableOpacity onPress={() => openImage(data.poster_path, 1)}>
                 <Image
                   source={{ uri: `https://image.tmdb.org/t/p/w500/${data.poster_path}` }}
                   style={{
@@ -91,7 +100,7 @@ export default function DetailsScreen({ route }) {
                   subtitle={data.release_date || data.first_air_date}
                   titleNumberOfLines={1}
                   subtitleNumberOfLines={1}
-                  titleStyle={{ fontSize: 24, fontWeight: 'bold', color: '#000', marginTop: 56 }}
+                  titleStyle={{ fontSize: 24, fontWeight: 'bold', color: '#000', marginTop: 90 }}
                 />
               </View>
             </View>
@@ -106,11 +115,17 @@ export default function DetailsScreen({ route }) {
             ) : null}
 
             <Text style={{ fontSize: 14, color: '#666' }}>
-              Original Title: <Text style={{ fontWeight: '600' }}>{data.original_title || data.original_name}</Text>
+              Original Title:{' '}
+              <Text style={{ fontWeight: '600' }}>
+                {data.original_title || data.original_name}
+              </Text>
             </Text>
 
             <Text style={{ fontSize: 14, color: '#666' }}>
-              First Air Date: <Text style={{ fontWeight: '600' }}>{data.first_air_date || data.release_date}</Text>
+              First Air Date:{' '}
+              <Text style={{ fontWeight: '600' }}>
+                {data.first_air_date || data.release_date}
+              </Text>
             </Text>
 
             <Text style={{ fontSize: 14, color: '#666' }}>
@@ -160,17 +175,23 @@ export default function DetailsScreen({ route }) {
             </Text>
 
             {/* Overview */}
-            <Text style={{ fontSize: 20, color: '#666', marginTop: 10, fontWeight: 'bold' }}>Story:</Text>
-            <Text style={{ fontSize: 16, marginVertical: 10, color: '#333' }}>{data.overview}</Text>
+            <Text style={{ fontSize: 20, color: '#666', marginTop: 10, fontWeight: 'bold' }}>
+              Story:
+            </Text>
+            <Text style={{ fontSize: 16, marginVertical: 10, color: '#333' }}>
+              {data.overview}
+            </Text>
 
             {/* Production Companies */}
             {data.production_companies?.length > 0 && (
               <View style={{ marginTop: 10 }}>
-                <Text style={{ fontSize: 16, color: '#666', fontWeight: 'bold' }}>Production Companies:</Text>
-                {data.production_companies.map((company) => (
+                <Text style={{ fontSize: 16, color: '#666', fontWeight: 'bold' }}>
+                  Production Companies:
+                </Text>
+                {data.production_companies.map((company, idx) => (
                   <TouchableOpacity
                     key={company.id}
-                    onPress={() => openImage(company.logo_path)}
+                    onPress={() => openImage(company.logo_path, 2 + idx)}
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
@@ -184,7 +205,9 @@ export default function DetailsScreen({ route }) {
                   >
                     {company.logo_path && (
                       <Image
-                        source={{ uri: `https://image.tmdb.org/t/p/w500/${company.logo_path}` }}
+                        source={{
+                          uri: `https://image.tmdb.org/t/p/w500/${company.logo_path}`,
+                        }}
                         style={{ width: 80, height: 40, borderRadius: 5, marginRight: 10 }}
                       />
                     )}
@@ -194,15 +217,13 @@ export default function DetailsScreen({ route }) {
               </View>
             )}
           </Card.Content>
-        </Card>
+        </View>
 
         {/* Similar Shows */}
         {!loadingSimilar && (
-          <>
+          <View style={{ marginTop: 20, marginBottom: 30 }}>
             <Text style={{ fontSize: 24, fontWeight: '700', margin: 10 }}>Similar</Text>
-            <Divider
-              style={{ width: '90%', backgroundColor: 'rgb(255, 123, 0)', alignSelf: 'center' }}
-            />
+
             <ShowsList
               shows={similarShows}
               loading={loadingSimilar}
@@ -211,7 +232,7 @@ export default function DetailsScreen({ route }) {
               Component={ShowCard}
               type={type}
             />
-          </>
+          </View>
         )}
       </ScrollView>
 
@@ -236,22 +257,15 @@ export default function DetailsScreen({ route }) {
             allowsFullscreenVideo
           />
         </Modal>
-
-        {/* Image Modal */}
-        <Modal
-          visible={!!imageVisible}
-          onDismiss={() => setImageVisible(false)}
-          contentContainerStyle={{
-            backgroundColor: 'white',
-            borderRadius: 10,
-            width: width * 0.8,
-            alignSelf: 'center',
-            overflow: 'hidden',
-          }}
-        >
-          <Image source={{ uri: imageVisible }} style={{ width: '100%', height: 400 }} resizeMode="contain" />
-        </Modal>
       </Portal>
+
+      <ImageViewing
+        images={images}
+        imageIndex={imageIndex}
+        visible={isImageViewVisible}
+        onRequestClose={() => setIsImageViewVisible(false)}
+        backgroundColor='rgba(0, 0, 0, 0.1)'
+      />
     </PaperProvider>
   );
 }

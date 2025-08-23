@@ -16,7 +16,7 @@ export default function FavoritesScreen() {
   }, []);
 
   return (
-    <ScrollView>
+    <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
       <ShowsList
         shows={faves}
         loading={false}
